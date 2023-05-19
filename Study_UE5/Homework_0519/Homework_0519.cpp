@@ -3,18 +3,13 @@
 int ChCount(const char* const _string, char Ch)     // Ch와 같은 문자가 몇개들어있는지 세어서 리턴해주는 함수
 {
     int ChCount = 0;
+
     while (_string[ChCount])
     {
-        char Ch = _string[ChCount];
-
         ++ChCount;
     }
 
-    int Count = 0;
-
-    // for문을 돌리는건 당연한거야.
-
-    return 0;
+    return ChCount;
 }
 
 void TrimDelete(char* _string) //문자열의 공백을 삭제해주는 함수
