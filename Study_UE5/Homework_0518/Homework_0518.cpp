@@ -16,6 +16,7 @@ void ChangeCh(char* _Arr, char _PrevCh, char _NextCh)
     // 1. 들어온 글자를 전부 '1'로 채워봐라.
     //  1-1. 함수 내부에서 하지 말고
     // for while도 생각하지 말고
+    //
 
 
     return;
