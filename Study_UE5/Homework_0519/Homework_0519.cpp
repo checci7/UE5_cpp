@@ -1,30 +1,41 @@
 ﻿#include <iostream>
-//sfdf
+
 int ChCount(const char* const _string, char Ch)     // Ch와 같은 문자가 몇개들어있는지 세어서 리턴해주는 함수
 {
     int ChCount = 0;
+    int Count = 0;
     
-    while (_string[ChCount])
+    while (_string[ChCount] != '\0')
     {
+        if (_string[ChCount] == Ch) {
+            ++Count;
+        }
         ++ChCount;
     }
-    //아아아아악
-    return ChCount;
+    return Count;
 }
 
 void TrimDelete(char* _string) //문자열의 공백을 삭제해주는 함수
 {
-    char Ch = 'a';
-    ' ';
+    char Ch = ' ';
+    int ChCount = 0;
 
-    //while ()
-    //{
-    if (Ch == ' ')
+    while (_string[ChCount] != '\0')
     {
-        int a = 0;
+        if (_string[ChCount] == Ch)
+        {
+            int i = ChCount;
+
+            while (_string[i] != '\0')
+            {
+                _string[i] = _string[i + 1];
+                ++i;
+            }
+        }
+        else {
+            ++ChCount;
+        }
     }
-    //}
-    return;
 }
 
 
@@ -49,16 +60,15 @@ int main()
     // 4가 리턴되어야 합니다.
     // 문자열의 마지막에 들어가는 0은 글자로 치지 않습니다.
     {
-        int Result = ChCount("ab aaa ccc ddd eee", 'w');
-        std::cout << '2323';
+        int Result = ChCount("ab aaa ccc ddd eee", 'a');
+        std::cout << Result << std::endl;
     }
 
     {
         char Arr[256] = "aa  b  c dd ee";
-
         TrimDelete(Arr);
-
         int a = 0;
+        std::cout << Arr << std::endl;
     }
 
     {
