@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-
+//40개 넘으면 에러
 int ChCount(const char* const _string, char Ch)
 {
     int ChCount = 0;
