@@ -154,7 +154,7 @@ public:
     
     Player(const Player&) = delete;
 
-    void Input(ConsoleScreen* _Sreen)
+    void Input(ConsoleScreen* _Screen)
     {
         char Select = (char)_getch();  //키입력받는함수
 
@@ -174,64 +174,64 @@ public:
         case 's':
             MovePos = Down;
         case ' ': //총알발사
-            Shot();
             break;
         default:
             break;
         }
 
-        if (false == _Sreen->IsScreenOut(GetPos() + MovePos))
+      
+        int4 newPos = Pos + MovePos;
+
+        bool collision = false;
+
+        // 벽과 충돌 확인
+        for (size_t i = 0; i < 10; i++)
         {
-            AddPos(MovePos);
+            int4 wallPos = { 5, static_cast<int>(i) };
+            if (newPos.X == wallPos.X && newPos.Y == wallPos.Y)
+            {
+                collision = true;
+                break;
+            }
         }
 
+        if (false == collision && false == _Screen->IsScreenOut(newPos))
+        {
+            Pos = newPos;
+        }
     }
     int4 Pos;
 };
 
-void Shot() {
-
-}
 
 int main()
 {
     ConsoleScreen Screen;
-    Screen.Init('*'); //화면채우기
+    Screen.Init('*');
 
-    Player MainPlayer; 
-    MainPlayer.SetPos({ 10, 5 }); //시작위치
+    Player MainPlayer;
+    MainPlayer.SetPos({ 10, 5 });
 
-    //Wall ArrWall[10];
+    int Count = 0;
+
     while (true)
     {
-        Screen.Clear(); //화면지우기
-        Screen.SetPixel(MainPlayer.GetPos(), 'a'); //플레이어 a 생성
-        Screen.Print(); //화면그리기
-        MainPlayer.Input(&Screen);//키입력받는함수
+        Screen.Clear();
+        Screen.SetPixel(MainPlayer.GetPos(), 'a');
 
-        int Count = 0;
-        for (size_t i = 0; i < 5; i++)
+
+        for (size_t i = 0; i < 10; i++)
         {
-            //int4 WallPos = ArrWall[i].GetPos();
             int4 WallPos = { 5 + Count, i };
             Screen.SetPixel(WallPos, '0');
         }
-        ++Count;
 
-        if (0 != _kbhit()) //시간흐름
+        Screen.Print();
+
+        if (0 != _kbhit())
         {
             MainPlayer.Input(&Screen);
         }
-        Sleep(200);
+        Sleep(50);
     }
 }
-
-//헤더랑 클래스 정리
-// ::의 의미?
-//순환참조? A가B를알고 B가 A를 아는것?
-//전역함수의 선언과 구현?
-//extern = C스타일의 문법을 분리해주는 것
-//클래스?,객채지향? = 모든것을 표현할 수 있다.
-//다른사람의코드를 이용.이해해야한다
-//
-//클래스의 상속문법? 클래스상속 퍼블릭상속? 프로텍트상속? <- 쓸 곳이 있나?
