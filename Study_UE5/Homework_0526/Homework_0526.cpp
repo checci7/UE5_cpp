@@ -55,8 +55,8 @@ public:
         Return.W = W + _Other.W;
         return Return;
     }
-
 };
+
 const int4 Left = { -1, 0 };
 const int4 Right = { 1, 0 };
 const int4 Up = { 0, -1 };
